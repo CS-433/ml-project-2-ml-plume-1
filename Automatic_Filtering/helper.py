@@ -38,9 +38,15 @@ def imageIsCorrect(image):
     correct = True
     if percentage < 54:
         if percentage_2 < 9 or percentage_2 > 37:
-            correct = False
-            print("Incorrect percentage_2: " + str(percentage_2))
-        else:
-            print("Correct percentage_2: " + str(percentage_2))
-            
+            correct = False       
     return correct
+
+def saveFilteredImages(folder, folderSave, crop=False):
+    for filename in os.listdir(folder):
+        img = cv2.imread(os.path.join(folder,filename), cv2.IMREAD_GRAYSCALE)
+        # if crop:
+        #    img = img[190:,190:] # we crop the image
+        img_binary = convertBlackAndWhite(img)
+        if (imageIsCorrect(img_binary)):
+            saveImage(img, folderSave, filename)
+          
