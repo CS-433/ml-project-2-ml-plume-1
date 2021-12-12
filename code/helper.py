@@ -3,6 +3,8 @@ import cv2
 import os  # to load the images from a folder
 import numpy as np
 
+reference_percentage = 48.26171875
+
 # useful functions
 def normalizeImage(image):
     # normalize the image
@@ -32,22 +34,32 @@ def getNumBlackPixels(image):
 def getPercentage(image):
     return (getNumBlackPixels(image)/getNumPixels(image))*100
 
-def imageIsCorrect(image):
-    percentage = getPercentage(image)
-    crop_image = image[256:,:]
-    percentage_2 = getPercentage(crop_image)
+def imageIsCorrect(image, tolerance, central):
+    img_binary = convertBlackAndWhite(image)
+    shape_1 = img_binary.shape[0]
+    shape_2 = img_binary.shape[1]
+    crop_image_binary = img_binary[int(shape_1/2):,int(shape_2/2):]
+    percentage = getPercentage(crop_image_binary)
     correct = True
-    if percentage < 54:
-        if percentage_2 < 9 or percentage_2 > 37:
-            correct = False       
-    return correct
+    if percentage < (reference_percentage - tolerance) or percentage > (reference_percentage + tolerance):
+        correct = False
+    else:
+        crop_image_binary_2 = img_binary[int(shape_1/3):int((2*shape_1)/3),int(shape_2/3):int((2*shape_2)/3)]
+        second_percentage = getPercentage(crop_image_binary_2)
+        if second_percentage < central:
+            correct = False
+    return correct, percentage
 
-def saveFilteredImages(folder, folderSave, crop=False):
+def saveFilteredImages(folder, folderSave, tolerance=5, central=5):
+    num_images = 0
+    counter = 0
+    # print("Reference Percentage " + str(reference_percentage))
     for filename in os.listdir(folder):
         img = cv2.imread(os.path.join(folder,filename), cv2.IMREAD_GRAYSCALE)
-        # if crop:
-        #    img = img[190:,190:] # we crop the image
-        img_binary = convertBlackAndWhite(img)
-        if (imageIsCorrect(img_binary)):
+        # print("Percentage Image " + str(counter))
+        counter += 1
+        print(str(imageIsCorrect(img, tolerance, central)[1]))
+        if (imageIsCorrect(img, tolerance, central)[0]):
+            num_images += 1
             saveImage(normalizeImage(img), folderSave, filename)
-          
+    return num_images
