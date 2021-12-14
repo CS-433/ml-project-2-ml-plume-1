@@ -36,7 +36,7 @@ def visualize(data, labels, fig_size, num_clusters=4, rows=160, columns=128):
 
         cluster_idxs = np.where(labels==i)[0] # find the indexes of images in cluster i
         num_elements = cluster_idxs.shape[0]  # number of elements in the cluster
-        num_rows = np.floor(num_elements/fig_size.) # number of rows in the figure of the cluster
+        num_rows = np.floor(num_elements/fig_size) # number of rows in the figure of the cluster
 
         print(f"cluster {i}, {num_elements} elements") 
 
@@ -82,20 +82,28 @@ def infoClusters(labels, n):
     print("Number of clusters:", len(unique))
     for i in range(n):
         print("Cluster",i,"contains",counts[i],"elements.")
+        
 
-# helpful functions for PCA
+def create_labels_dict(num_clusters, labels):
+    labels_dict = {}
+    for cluster in range(num_clusters):
+        cluster_ids = np.array([idx for idx, elem in enumerate(labels) if (labels[idx] == cluster)])
+        labels_dict[cluster] = cluster_ids
+    return labels_dict
 
-def apply_pca(data, n_components):
-    '''Apply pca on feature matrix X with n_components desired components.''' 
 
-    X = data.reshape(data.shape[0], data.shape[1]*data.shape[2]) # our feature matrix
-    print(f'Before PCA, we have {X.shape[0]} samples, each with {X.shape[1]} features')
-    
-    pca = PCA(n_components) # initialize PCA
-    pca.fit(X) # fit to data
-    X_pca = pca.transform(X) # transform data
-    imgs_reduced = pca.inverse_transform(X_pca) # get reduced images
-    imgs_reduced = imgs_reduced.reshape(data.shape)
-    
-    print(f'After PCA, we have {X.shape[0]} samples, each with {X_pca.shape[1]} features')
-    return X_pca, imgs_reduced, pca
+def plot_cluster_examples(num_examples, num_clusters, labels, imgs_reduced):
+    num_columns = 4
+    num_rows = -(num_examples//-num_columns)
+
+    for cluster in range(num_clusters):
+        cluster_ids = np.array([idx for idx, elem in enumerate(labels) if (labels[idx] == cluster)])
+        cluster_examples = np.random.choice(cluster_ids, size = num_examples, replace = False)
+
+        fig, axs = plt.subplots(num_rows,num_columns, sharex=True, sharey=True, figsize = (5*num_columns, 4*num_rows))
+        axs = axs.flatten()
+        for ax, example in zip(axs, cluster_examples):
+            ax.imshow(imgs_reduced[example],cmap='gray')
+            ax.set_title(f'Image {example}')
+        fig.suptitle(f'Cluster {cluster}')
+        plt.tight_layout()

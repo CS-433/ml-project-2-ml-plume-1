@@ -2,7 +2,6 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-%matplotlib inline
 import matplotlib.image as mpimg
 from helper_pca import *
 
