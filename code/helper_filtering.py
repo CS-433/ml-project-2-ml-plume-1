@@ -5,7 +5,6 @@ import numpy as np
 from helper_clustering import import_data
 from helper_edge_detection import edge_detection_img
 
-# useful functions
 def normalize_image(image):
     '''
     Normalization of an image.
@@ -54,7 +53,7 @@ def get_pixels(image):
     Compute the number of pixels of an image.
     
     Args:
-        image (numpy array): the image whose number of pixels is going to be compute
+        image (numpy array): the image whose number of pixels is going to be computed
     Returns:
         num_pixels (int): the number of pixels of the image given as input.
     '''
@@ -66,7 +65,7 @@ def get_black_pixels(image):
     Compute the number of black pixels of an image.
     
     Args:
-        image (numpy array): the image whose number of black pixels is going to be compute
+        image (numpy array): the image whose number of black pixels is going to be computed
     Returns:
         num_black_pixels (int): the number of black pixels of the image given as input.
     '''
@@ -75,11 +74,25 @@ def get_black_pixels(image):
 
 def get_percentage(image):
     '''
+    Compute the percentage of black pixels of an image.
+    
+    Args:
+        image (numpy array): the image whose percentage of black pixels is going to be computed
+    Returns:
+        percentage (float): the percentage of black pixels of the image given as input.
     '''
-    return (get_black_pixels(image) / get_pixels(image)) * 100
+    percentage = (get_black_pixels(image) / get_pixels(image)) * 100
+    return percentage
 
 def image_is_correct(image, tolerance, central):
     '''
+    Determine is an image is correct (i.e. can be consider as a good entry).
+    
+    Args:
+        image (numpy array): the image whose correcness is going to be determined
+    Returns:
+        correct (boolean): it will be true if the image is considered as a good input
+                           for our classification problem.
     '''
     correct = True
     black_and_white = black_white(image)
@@ -90,6 +103,16 @@ def image_is_correct(image, tolerance, central):
 
 def save_filtered_images(folder, folderSave):
     '''
+    Function that is going to save the images contained in a folder that are good inputs
+    for our classification problem into another folder.
+    
+    Args:
+        folder (string): name of the folder from which the images are going to be load
+                         to analize them
+        folderSave (string): name of the folder in which the correct images are going
+                         to be saved
+    Returns:
+        num_images (int): the number of images that have been saved in folderSave.
     '''
     num_images = 0
     for filename in os.listdir(folder):

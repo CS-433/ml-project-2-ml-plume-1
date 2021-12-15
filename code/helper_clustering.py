@@ -18,7 +18,7 @@ def import_data(directory, folder): # shouldnt we just put one path??
         
     return np.array(data)
 
-def visualize(data, labels, fig_size, num_clusters=4, rows=160, columns=128):
+def visualize(data, labels, fig_size, num_clusters=4, rows=128, columns=160):
     '''
     For each cluster, plot all the images contained in the cluster.
     
