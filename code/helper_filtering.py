@@ -2,17 +2,33 @@
 import cv2
 import os  # to load the images from a folder
 import numpy as np
-
-reference_percentage = 48.26171875
+from helper_clustering import import_data
+from helper_edge_detection import edge_detection_img
 
 # useful functions
-def normalizeImage(image):
+def normalize_image(image):
+    '''
+    Normalization of an image.
+    
+    Args:
+        image (numpy array): image to normalize
+    Returns:
+        norm_image (numpy array): normalized image.
+    '''
     # normalize the image
     img_grey_norm = np.zeros(image.shape)
     norm_image = cv2.normalize(image,img_grey_norm,0,255,cv2.NORM_MINMAX)
     return norm_image
 
-def convertBlackAndWhite(image):
+def black_white(image):
+    '''
+    Conversion of an image into a binary image.
+    
+    Args:
+        image (numpy array): image to convert into a black and white image
+    Returns:
+        img_binary (numpy array): binary version of the input image.
+    '''
     # define a threshold
     final_thresh = np.mean(image)
 
@@ -21,45 +37,65 @@ def convertBlackAndWhite(image):
     
     return img_binary
 
-def saveImage(image, folder, filename):
+def save_image(image, folder, filename):
+    '''
+    Save an image.
+    
+    Args:
+        image (numpy array): image we want to save
+        folder (string): name of the folder in which we want to save the image
+        filename (string): future filename of the image we want to save
+     '''
     # save image
     cv2.imwrite(os.path.join(folder,filename), image)
 
-def getNumPixels(image):
-    return image.shape[0]*image.shape[1]
+def get_pixels(image):
+    '''
+    Compute the number of pixels of an image.
     
-def getNumBlackPixels(image):
-    return np.sum(image == 0)
+    Args:
+        image (numpy array): the image whose number of pixels is going to be compute
+    Returns:
+        num_pixels (int): the number of pixels of the image given as input.
+    '''
+    num_pixels = image.shape[0]*image.shape[1]
+    return num_pixels
+    
+def get_black_pixels(image):
+    '''
+    Compute the number of black pixels of an image.
+    
+    Args:
+        image (numpy array): the image whose number of black pixels is going to be compute
+    Returns:
+        num_black_pixels (int): the number of black pixels of the image given as input.
+    '''
+    num_black_pixels = np.sum(image == 0)
+    return num_black_pixels
 
-def getPercentage(image):
-    return (getNumBlackPixels(image)/getNumPixels(image))*100
+def get_percentage(image):
+    '''
+    '''
+    return (get_black_pixels(image) / get_pixels(image)) * 100
 
-def imageIsCorrect(image, tolerance, central):
-    img_binary = convertBlackAndWhite(image)
-    shape_1 = img_binary.shape[0]
-    shape_2 = img_binary.shape[1]
-    crop_image_binary = img_binary[int(shape_1/2):,int(shape_2/2):]
-    percentage = getPercentage(crop_image_binary)
+def image_is_correct(image, tolerance, central):
+    '''
+    '''
     correct = True
-    if percentage < (reference_percentage - tolerance) or percentage > (reference_percentage + tolerance):
+    black_and_white = black_white(image)
+    percentage = get_percentage(black_and_white)
+    if (percentage <= 77 or percentage >= 89):
         correct = False
-    else:
-        crop_image_binary_2 = img_binary[int(shape_1/3):int((2*shape_1)/3),int(shape_2/3):int((2*shape_2)/3)]
-        second_percentage = getPercentage(crop_image_binary_2)
-        if second_percentage < central:
-            correct = False
     return correct, percentage
 
-def saveFilteredImages(folder, folderSave, tolerance=25, central=15):
+def save_filtered_images(folder, folderSave):
+    '''
+    '''
     num_images = 0
-    counter = 0
-    # print("Reference Percentage " + str(reference_percentage))
     for filename in os.listdir(folder):
         img = cv2.imread(os.path.join(folder,filename), cv2.IMREAD_GRAYSCALE)
-        # print("Percentage Image " + str(counter))
-        counter += 1
-        # print(str(imageIsCorrect(img, tolerance, central)[1]))
-        if (imageIsCorrect(img, tolerance, central)[0]):
+        img_edges_roberts = edge_detection_img(img)
+        if (image_is_correct(img_edges_roberts, tolerance, central)[0]):
             num_images += 1
-            saveImage(normalizeImage(img), folderSave, filename)
+            save_image(img, folderSave, filename)
     return num_images

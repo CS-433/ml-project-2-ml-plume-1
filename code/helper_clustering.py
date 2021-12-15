@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
-def importData(directory, folder): # shouldnt we just put one path??
+def import_data(directory, folder): # shouldnt we just put one path??
     '''Return numpy array containing all the data found in the given path.'''
     data = []
     os.chdir(directory)
