@@ -52,7 +52,7 @@ def visualize(data, labels, fig_size, num_clusters=4, rows=128, columns=160):
         plt.show()
         
         
-def obtainClusters(folder, labels):
+def obtain_clusters(folder, labels):
     '''
     Create a dictionary of clusters where each cluster label contains all the images belonging to it.
     
@@ -76,7 +76,7 @@ def obtainClusters(folder, labels):
     return groups
 
 
-def infoClusters(labels, n):
+def info_clusters(labels, n):
     '''Print number of elements in each of n clusters with labels data.'''
     (unique, counts) = np.unique(labels, return_counts=True) 
     print("Number of clusters:", len(unique))
