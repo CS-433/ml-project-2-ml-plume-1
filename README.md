@@ -1,25 +1,35 @@
 # ml-project-2-ml-plume-1
 
+## Table of Contents
+1. [General Info](#general-info)
+2. [Directory & File Structure](#directory-and-file-structure)
+3. [How to run our project](#how-to-run-our-project)
+5. [Members of the team](#members-of-the-team)
+### General Information
+***
+The aim of this project is...
+
 ### Directory and File Structure
 ***
 ```
 project
 │   README.md
-|   project1.ipynb
 |   data_splitting.py
-|   Project1Final-MDP.pdf
+|   Report.pdf
 │
 └───code
 |     automatic_generation_of_filtered_data.ipynb
+|     convolutional_nn.ipynb
 |     Dataset_creation.py
 |     data_splitting.ipynb
 |     helper_clustering.py
+|     helper_normalization.py
+|     helper_edge_detection.py
 |     helper_filtering.py
+|     helper_nn.py
+|     helper_pca.py
 |     image_classification.ipynb
-|     image_filtering.ipynb
-|     pca.ipynb
-|     pca_full_with_kmeans.ipynb
-|     testing_automatic_filtering_images.ipynb
+|     processing_clustering.ipynb
 |
 └───data
 |     └───Cluster_Examples
@@ -36,3 +46,15 @@ project
 |           └───Test
 |
 ```
+
+## How to run our project
+***
+To run our project...
+
+We run the convolutional_nn.ipynb file in *Google Colab*. Note that we need to upload the following files to properly run it: ```images.zip```, ```helper_clustering.py```, ```helper_nn.py``` and ```training_labels.csv```.
+
+## Members of the team
+***
+* Paula Dolores Rescala
+* María Isabel Ruiz Martínez
+* Gönczy Daniel Alessandro Laszlo
