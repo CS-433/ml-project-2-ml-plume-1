@@ -84,7 +84,7 @@ def get_percentage(image):
     percentage = (get_black_pixels(image) / get_pixels(image)) * 100
     return percentage
 
-def image_is_correct(image, tolerance, central):
+def image_is_correct(image):
     '''
     Determine is an image is correct (i.e. can be consider as a good entry).
     
@@ -118,7 +118,7 @@ def save_filtered_images(folder, folderSave):
     for filename in os.listdir(folder):
         img = cv2.imread(os.path.join(folder,filename), cv2.IMREAD_GRAYSCALE)
         img_edges_roberts = edge_detection_img(img)
-        if (image_is_correct(img_edges_roberts, tolerance, central)[0]):
+        if (image_is_correct(img_edges_roberts)[0]):
             num_images += 1
             save_image(img, folderSave, filename)
     return num_images
