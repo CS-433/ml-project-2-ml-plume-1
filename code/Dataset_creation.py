@@ -3,6 +3,7 @@ from PIL import Image
 import time
 import random
 import shutil
+import csv
 # import pandas as pd
 # import numpy as np
 # import sys
@@ -10,6 +11,7 @@ import shutil
 # os.system('CLS')
 new_dir = r"D:\ML_Data\Full_Data"
 old_dir = r"E:\TLB1_thermal - Copy\images"
+old_dir = r"D:\ML_Data\Dataset_3k\Testing_set"
 Subfs=[]
 Picts_old=[]
 Picts_new=[]
@@ -25,7 +27,7 @@ for root, subdirectories, files in os.walk(old_dir):
         for file in files:
             pict = os.path.join(root, file)
             Picts_old.append(pict)
-            
+    
 print("--- %s seconds ---" % (time.time() - start_time))
 start_time = time.time()
 
