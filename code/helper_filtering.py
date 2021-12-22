@@ -115,10 +115,17 @@ def save_filtered_images(folder, folderSave):
         num_images (int): the number of images that have been saved in folderSave.
     '''
     num_images = 0
+    filenames_new = []
     for filename in os.listdir(folder):
         img = cv2.imread(os.path.join(folder,filename), cv2.IMREAD_GRAYSCALE)
-        img_edges_roberts = edge_detection_img(img)
-        if (image_is_correct(img_edges_roberts)[0]):
-            num_images += 1
-            save_image(img, folderSave, filename)
-    return num_images
+        if img is None:
+            pass
+        else:
+            img_edges_roberts = edge_detection_img(img)
+            if (image_is_correct(img_edges_roberts)[0]):
+                num_images += 1
+                filenames_new.append(filename)
+                #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(3, 3))
+                #img_new = clahe.apply(img)
+                save_image(img, folderSave, filename)
+    return num_images, filenames_new

@@ -25,12 +25,10 @@ def get_data_grayscale(file_path):
     
 def get_data_color(file_path):
     
-    data = []
     h_vals = []
     s_vals = []
     v_vals = []
     filenames = os.listdir(file_path)
-    filenames_new = []
     
     for filename in filenames:
         img = cv2.imread(os.path.join(file_path,filename)) 
@@ -42,16 +40,13 @@ def get_data_color(file_path):
             h_vals.append(h)
             s_vals.append(s)
             v_vals.append(v)
-            data.append(img)
-            filenames_new.append(filename)
-            
-    data = np.array(data)
-                
-    return filenames_new, data, h_vals, s_vals, v_vals
+                            
+    return h_vals, s_vals, v_vals
 
 
-def normalize_brightness(filenames, path_to_out, h_vals, s_vals, v_vals, method = 'histogram_flattening'):
+def normalize_brightness(file_path, method = 'histogram_flattening'):
     
+    h_vals, s_vals, v_vals = get_data_color(file_path)
     results = []
     for v in v_vals:
         if method == 'histogram_flattening':
@@ -67,10 +62,12 @@ def normalize_brightness(filenames, path_to_out, h_vals, s_vals, v_vals, method 
             v = (v-np.mean(v)) / np.std(v) * s + m
             result = np.array(v, dtype=np.uint8)
             results.append(result)
-    
-    path_to_out = os.path.join(path_to_out, f'{method}/')
-    for result, filename, h, s in zip(results, filenames, h_vals, s_vals):
+
+    data=[]
+    for result, h, s in zip(results, h_vals, s_vals):
         hsv = cv2.merge((h,s,result))
         rgb = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-        filename_out = os.path.join(path_to_out, f'result_{filename}')
-        cv2.imwrite(filename_out, rgb) 
+        img_gray = cv2.cvtColor(rgb, cv2.COLOR_BGR2GRAY)
+        data.append(img_gray)
+        
+    return data
