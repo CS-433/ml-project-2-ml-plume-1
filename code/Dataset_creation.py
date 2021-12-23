@@ -3,15 +3,10 @@ from PIL import Image
 import time
 import random
 import shutil
-import csv
-# import pandas as pd
-# import numpy as np
-# import sys
 
-# os.system('CLS')
+# Path of the picture folder (old_dir) and of the dataset folder (new_dir)
 new_dir = r"D:\ML_Data\Full_Data"
 old_dir = r"E:\TLB1_thermal - Copy\images"
-old_dir = r"D:\ML_Data\Dataset_3k\Testing_set"
 Subfs=[]
 Picts_old=[]
 Picts_new=[]
@@ -31,7 +26,7 @@ for root, subdirectories, files in os.walk(old_dir):
 print("--- %s seconds ---" % (time.time() - start_time))
 start_time = time.time()
 
-# For every picture, renames it with date and adds it in another folder with lower res (16x less px)
+# For every picture, renames it with date (year-month-day) and adds it in another folder with lower res (16x less px)
 for i in Picts_old:
     old_img = i
     if len(old_img) != 67:
@@ -46,7 +41,7 @@ for i in Picts_old:
 print("--- %s seconds ---" % (time.time() - start_time))
 start_time = time.time()
 
-# Dataset 1: With 3'000 pictures divided in 3 sets
+# Creation of dataset 1: With 3'000 pictures divided in 3 sets
 Picts_rand = random.sample(Picts_new, 3000)
 
 Picts_d1_train = Picts_rand[0:1000]
@@ -64,7 +59,7 @@ for i in Picts_d1_test:
     new_path = os.path.join(r"D:\ML_Data\Dataset_3k\Testing_set", i[21:])
     shutil.copyfile(i, new_path)
     
-# Dataset 2: With 9'000 pictures divided in 3 sets
+# Creation of dataset 2: With 9'000 pictures divided in 3 sets
 Picts_rand = random.sample(Picts_new, 15000)
 
 Picts_d2_train = Picts_rand[0:5000]
@@ -82,7 +77,7 @@ for i in Picts_d2_test:
     new_path = os.path.join(r"D:\ML_Data\Dataset_15k\Testing_set", i[21:])
     shutil.copyfile(i, new_path)
     
-# Dataset 3: With 30'000 pictures divided in 3 sets
+# Creation of dataset 3: With 30'000 pictures divided in 3 sets
 Picts_rand = random.sample(Picts_new, 75000)
 
 Picts_d3_train = Picts_rand[0:25000]
