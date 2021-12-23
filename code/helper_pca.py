@@ -35,6 +35,7 @@ def apply_pca(data, n_components, plot_explained_variance = True):
         plt.xlabel('Number of components')
         plt.ylabel('Explained variance')
         plt.tight_layout()
+        plt.show()
         
     return X_pca, imgs_reduced
 
