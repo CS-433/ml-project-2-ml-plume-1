@@ -1,10 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
-from sklearn.metrics import adjusted_rand_score
-from matplotlib import pyplot as plt
-# from sklearn.mixture import GaussianMixture
-# from helper_clustering import import_data, visualize, obtain_clusters, info_clusters
+from sklearn.metrics import adjusted_rand_score, silhouette_score
 
 # We import the data (already normalized over a year of samples)
 # Input data and label path down here
@@ -51,6 +48,9 @@ labels_gmm = tmp2.ravel()
 np.random.seed(0)
 kmeans = KMeans(n_clusters=4, init='random', n_init=100)
 kmeans.fit(features)
+label = kmeans.predict(features)
+print("Lowest SSE Value, All features:" + str(kmeans.inertia_))
+print("Silhouette score, All features:" + str(silhouette_score(features, kmeans.labels_)))
 
 # Comparison K-means and with labeling K-means/GMM
 ari_kmeans1 = adjusted_rand_score(labels_kmeans, kmeans.labels_).round(4)
@@ -61,7 +61,10 @@ np.random.seed(0)
 kmeans = KMeans(n_clusters=4, init='random', n_init=100)
 features = data[['Flow rate']]
 kmeans.fit(features)
+label = kmeans.predict(features)
+print("Lowest SSE Value, Only flow rate:" + str(kmeans.inertia_))
+print("Silhouette score, Only flow rate:" + str(silhouette_score(features, kmeans.labels_)))
 
 # Comparison K-means and with labeling K-means/GMM
-ari_kmeans1 = adjusted_rand_score(labels_kmeans, kmeans.labels_).round(4)
-ari_gmm1 = adjusted_rand_score(labels_gmm, kmeans.labels_).round(4)
+ari_kmeans2 = adjusted_rand_score(labels_kmeans, kmeans.labels_).round(4)
+ari_gmm2 = adjusted_rand_score(labels_gmm, kmeans.labels_).round(4)
