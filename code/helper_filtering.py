@@ -116,16 +116,18 @@ def save_filtered_images(folder, folderSave):
     '''
     num_images = 0
     filenames_new = []
+    # loop through each file
     for filename in os.listdir(folder):
+        # read image in grayscale
         img = cv2.imread(os.path.join(folder,filename), cv2.IMREAD_GRAYSCALE)
         if img is None:
             pass
         else:
+            # apply the filter 
             img_edges_roberts = edge_detection_img(img)
+            # append image to good images if it is not empty and is correct based on the filter
             if (image_is_correct(img_edges_roberts)[0]):
                 num_images += 1
                 filenames_new.append(filename)
-                #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(3, 3))
-                #img_new = clahe.apply(img)
                 save_image(img, folderSave, filename)
     return num_images, filenames_new

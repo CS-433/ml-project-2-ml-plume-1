@@ -53,13 +53,6 @@ def visualize_img_reduction(data, imgs_reduced, idxs):
     num_cols = 2
     original_imgs = data[idxs]
     reduced_imgs = imgs_reduced[idxs]
-    
-    
-    '''# showing sample image
-    img_grey_1 = data[0]
-    img_grey_2 = data[1]
-    img_reduced_1 = imgs_reduced[0]
-    img_reduced_2 = imgs_reduced[1]'''
 
     length = num_imgs*5
     width = num_cols*5
