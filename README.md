@@ -47,6 +47,12 @@ project
 |
 ```
 
+The folder ```Cluster_Examples``` contains examples of the images provided by the lab that we are going to use as the input data for developping our project.
+
+The folders ```Save_3K``` and ```Save_15K``` are the images obtained after filtering the bad images from the training data set of the 3K data set and the training data set of the 15K data set.
+
+The file ```images.zip``` will be used in the ```convolutional_nn.ipynb``` file (it is just used for uploading the images easily to *Google Colab*).
+
 ## How to run our project
 ***
 In these section we will make some notes on how particular parts of our project should be run.
