@@ -19,17 +19,18 @@ project
 |   Report.pdf
 │
 └───code
+|     └───helpers
+|       └───Dataset_creation.py
+|       └───helper_clustering.py
+|       └───helper_normalization.py
+|       └───helper_edge_detection.py
+|       └───helper_filtering.py
+|       └───helper_nn.py
+|       └───helper_pca.py
+|       └───k_means_shape_flow.py
 |     automatic_generation_of_filtered_data.ipynb
 |     convolutional_nn.ipynb
-|     Dataset_creation.py
-|     helper_clustering.py
-|     helper_normalization.py
-|     helper_edge_detection.py
-|     helper_filtering.py
-|     helper_nn.py
-|     helper_pca.py
 |     image_classification.ipynb
-|     k_means_shape_flow.py
 |     labels_data.csv
 |     processing_clustering.ipynb
 |
