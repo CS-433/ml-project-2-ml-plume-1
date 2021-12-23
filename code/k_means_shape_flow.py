@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 # Input data and label path down here
 # Features file contains these columns: Unix time, Flow rate, Temperature, Wind direction, Wind speed, Wind speed squared
 # features in the Features file have already been normalized & standardized
-# Labels files contains these columns: Img name
+# Labels files contains these columns: Img name, Clusters kmeans, Clusters gmm
 data_path = r"C:\Users\Dan\Desktop\EPFL\MA 5\Machine Learning\ml-project-2-ml-plume-1\data\Data_Part_2\Features_Part2.csv"
 labels_path = r"C:\Users\Dan\Desktop\EPFL\MA 5\Machine Learning\ml-project-2-ml-plume-1\data\Data_Part_2\Labels_Clusters_Part2.csv"
 
