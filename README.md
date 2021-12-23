@@ -7,7 +7,9 @@
 5. [Members of the team](#members-of-the-team)
 ### General Information
 ***
-The aim of this project is...
+River plumes are particularly important to understand marine and aquatic coastal environments. The aim of this project is to understand and predict Rhône's plume shape.
+
+The data set is original data from the lab [ECOL](https://www.epfl.ch/labs/ecol/) from the EPFL.
 
 ### Directory and File Structure
 ***
