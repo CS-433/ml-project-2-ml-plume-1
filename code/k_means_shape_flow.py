@@ -8,8 +8,8 @@ from matplotlib import pyplot as plt
 # from helper_clustering import import_data, visualize, obtain_clusters, info_clusters
 
 # We import the data (already normalized over a year of samples)
-data_path = r"C:\Users\Dan\Desktop\Hourly_Discharge.csv"
-labels_path = r"C:\Users\Dan\Desktop\Labels_Clustering.csv"
+data_path = r"C:\Users\Dan\Desktop\EPFL\MA 5\Machine Learning\ml-project-2-ml-plume-1\data\Data_Part_2\Features_Part2.csv"
+labels_path = r"C:\Users\Dan\Desktop\EPFL\MA 5\Machine Learning\ml-project-2-ml-plume-1\data\Data_Part_2\Labels_Clusters_Part2.csv"
 data = pd.read_csv(data_path)
 cols = data.columns
 for col in cols:
@@ -48,6 +48,16 @@ np.random.seed(0)
 kmeans = KMeans(n_clusters=4, init='random', n_init=100)
 kmeans.fit(features)
 
-# Comparison K-means/DBSCAN and with labeling K-means/GMM
+# Comparison K-means and with labeling K-means/GMM
+ari_kmeans1 = adjusted_rand_score(labels_kmeans, kmeans.labels_).round(4)
+ari_gmm1 = adjusted_rand_score(labels_gmm, kmeans.labels_).round(4)
+
+# We classify the data with k-means
+np.random.seed(0)
+kmeans = KMeans(n_clusters=4, init='random', n_init=100)
+features = data[['Flow rate']]
+kmeans.fit(features)
+
+# Comparison K-means and with labeling K-means/GMM
 ari_kmeans1 = adjusted_rand_score(labels_kmeans, kmeans.labels_).round(4)
 ari_gmm1 = adjusted_rand_score(labels_gmm, kmeans.labels_).round(4)

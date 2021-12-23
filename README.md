@@ -14,14 +14,12 @@ The aim of this project is...
 ```
 project
 │   README.md
-|   data_splitting.py
 |   Report.pdf
 │
 └───code
 |     automatic_generation_of_filtered_data.ipynb
 |     convolutional_nn.ipynb
 |     Dataset_creation.py
-|     data_splitting.ipynb
 |     helper_clustering.py
 |     helper_normalization.py
 |     helper_edge_detection.py
@@ -29,6 +27,8 @@ project
 |     helper_nn.py
 |     helper_pca.py
 |     image_classification.ipynb
+|     k_means_shape_flow.py
+|     labels_data.csv
 |     processing_clustering.ipynb
 |
 └───data
@@ -37,21 +37,21 @@ project
 |           └───cluster2_triangle_with_overflow
 |           └───cluster3_triangle_without_overflow
 |           └───cluster4_patatoid_with_overflow
-|     └───Images_Labeled
-│ 
-└───generated
-|     └───Automatic_Filtering
-|           └───Image_Filtering
-|           └───Resutls_Test
-|           └───Test
+|     └───Data_Part_2
+|           Features_Part2.csv
+|           Labels_Clusters_Part2.csv
+|     └───Save_3K
+|     └───Save_15K
+|     images.zip
+|     training_labels.csv
 |
 ```
 
 ## How to run our project
 ***
-To run our project...
+In these section we will make some notes on how particular parts of our project should be run.
 
-We run the convolutional_nn.ipynb file in *Google Colab*. Note that we need to upload the following files to properly run it: ```images.zip```, ```helper_clustering.py```, ```helper_nn.py``` and ```training_labels.csv```.
+We run the convolutional_nn.ipynb file in *Google Colab*. Note that we need to upload the following files to properly run it: ```images.zip```, ```helper_clustering.py``` and ```training_labels.csv```.
 
 ## Members of the team
 ***
